@@ -1,0 +1,6 @@
+checkpoint_tshae:
+  path: "./best_models/FD003/tshae/tshae_best_model.pt"
+
+means: [0]
+stds: [0, 0.1, 0.25, 0.5]
+n_runs: 10

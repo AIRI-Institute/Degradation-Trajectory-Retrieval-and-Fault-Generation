@@ -1,0 +1,93 @@
+data_preprocessor:
+  dataset_name: "FD003"
+  max_rul: 125
+  window_size: 32
+  sensors: ['s_1', 's_2', 's_3', 's_4', 's_5', 's_6', 's_7', 's_8', 's_9', 's_10', 's_11', 's_12', 's_13', 's_14', 's_15', 's_16', 's_17', 's_18', 's_19', 's_20', 's_21']
+  train_size: 0.99
+  alpha: 1
+  dir_path: './CMAPSSData/'
+  fix_seed: ${random_seed.fix}
+
+  downsample_healthy_train: True
+  downsample_healthy_validation: False
+  downsample_healthy_test: False
+  downsample_healthy_train_p: 0.9
+  downsample_healthy_validation_p: 0.8
+  downsample_healthy_test_p: 0
+  downsample_rul_threshold_train: 40
+  downsample_rul_threshold_validation: False
+  downsample_rul_threshold_test: False
+
+  train_ds_mode: "train"
+  train_ds_return_pairs: False
+  train_ds_eps: 2
+  train_ds_max_eps: 10
+  train_ds_triplet_healthy_rul: 120
+
+  test_ds_mode: "test"
+  test_ds_return_pairs: False
+  test_ds_eps: 2
+  test_ds_max_eps: 10
+  test_ds_triplet_healthy_rul: 120
+
+  val_ds_mode: "train"
+  val_ds_return_pairs: False
+  val_ds_eps: 2
+  val_ds_max_eps: 10
+  val_ds_triplet_healthy_rul: 120
+
+  train_dl_batch_size: 64
+  train_dl_shuffle: True 
+  train_dl_num_workers: 4
+
+  test_dl_batch_size: 256
+  test_dl_shuffle: False 
+  test_dl_num_workers: 4
+
+  val_dl_batch_size: 256
+  val_dl_shuffle: True 
+  val_dl_num_workers: 4
+
+checkpoint_tshae: 
+  path: "./best_models/FD003/tshae/tshae_best_model.pt"
+
+checkpoint_ddpm:
+  path: "./best_models/FD003/ddpm/ddpm_best_model.pt"
+
+extrapolated_latent:
+  path: "./assets/extrapolated_latent.json"
+
+ddpm_model:
+  drop_prob: 0.1
+
+optimizer:
+  _target_: "torch.optim.Adam"
+  lr: 3e-3
+
+ddpm_train:
+  epochs: 100
+  n_T: 500 # 500
+  device:  "cuda:0" #"cuda:0"
+  z_dim:   2
+  n_feat: 64 # 128 ok, 256 better (but slower)
+  lrate: ${diffusion.optimizer.lr}
+  save_model: True
+  ws_test: [1.0, 2.0] # strength of generative guidance
+
+context_unet_model:
+  in_channels: 1
+  n_feat: n_feat
+  z_dim: z_dim
+  betas: (1e-4, 0.02)
+  n_T: n_T
+  device: device
+  drop_prob: 0.1
+
+diffusion_tester:
+  num_samples: 4
+  w: 0.5
+  quantile: 0.25
+  mode: "best"
+
+
+
