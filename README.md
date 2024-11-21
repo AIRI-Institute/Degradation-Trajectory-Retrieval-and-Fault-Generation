@@ -10,7 +10,7 @@ The main contributions of the research are as follows:
 - We validated the performance of our method using the NASA C-MAPSS dataset and other relevant problems
 
 <p align="center">
-<img alt="diffusion prediction" src="./best_models/FD003/images/latent_space_epoch.png" width="600">
+<img alt="diffusion prediction" src="./best_models/FD003/tshae/images/latent_space_epoch.png" width="600">
 </p>
 ## Table of Contents
 
